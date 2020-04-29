@@ -1,0 +1,12 @@
+#Consulta Densidade por País
+
+SELECT
+    bin.start,
+    ROUND(SUM(bin.density) / (SELECT COUNT(DISTINCT origin) FROM `chrome-ux-report.country_br.202003`), 4) AS density
+FROM
+    `chrome-ux-report.country_br.202003`,
+    UNNEST(first_contentful_paint.histogram.bin) AS bin
+GROUP BY
+    bin.start
+ORDER BY
+    bin.start
