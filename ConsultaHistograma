@@ -1,0 +1,16 @@
+# Consulta o histograma de certo domínio, se não quiser segmentar por dispostivo, basta apagar as linhas 11 e 12
+
+SELECT
+    bin.start,
+    SUM(bin.density) AS density
+FROM
+    `chrome-ux-report.country_br.202003`,
+    UNNEST(first_contentful_paint.histogram.bin) AS bin
+WHERE
+    origin = 'https://www.natura.com.br'
+AND 
+    form_factor.name = 'desktop'
+GROUP BY
+    bin.start
+ORDER BY
+    bin.start
