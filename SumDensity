@@ -1,0 +1,9 @@
+# Calcula soma de Densidades, o resultado nos dá a % de usuários com FCP < 1600ms
+SELECT
+    SUM(bin.density) AS density
+FROM
+    `chrome-ux-report.country_br.202003`,
+    UNNEST(first_contentful_paint.histogram.bin) AS bin
+WHERE
+    bin.start < 1600 AND
+    origin = 'https://www.natura.com.br'
