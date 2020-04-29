@@ -1,4 +1,5 @@
-# Calcula soma de Densidades, o resultado nos dá a % de usuários com FCP < 1600ms
+# Calcula soma de densidades de uma métrica
+
 SELECT
     SUM(bin.density) AS density
 FROM
