@@ -1,0 +1,12 @@
+# Calcula média por país
+
+SELECT
+ form_factor.name AS device,
+ ROUND(SUM(fcp.density) / (SELECT COUNT(DISTINCT origin) FROM `chrome-ux-report.country_br.202003`), 4) AS density
+FROM
+ `chrome-ux-report.country_br.202003`,
+ UNNEST(first_contentful_paint.histogram.bin) AS fcp
+GROUP BY
+ device
+ORDER BY
+ device
