@@ -1,0 +1,9 @@
+# A query conta quantas origens distintas existem em cada tabela
+
+SELECT 
+  _TABLE_SUFFIX as nome, 
+  COUNT(DISTINCT origin)
+FROM
+  `chrome-ux-report.country_br.*`
+  Group by nome
+  Order by nome
