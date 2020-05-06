@@ -1,0 +1,12 @@
+SELECT
+    _TABLE_SUFFIX as nome, 
+    SUM(bin.density) / COUNT(DISTINCT origin) AS density
+FROM
+    `chrome-ux-report.country_br.*`,
+    UNNEST(first_contentful_paint.histogram.bin) AS bin
+WHERE
+    bin.start > 1000
+AND 
+    bin.start < 2500
+Group by nome
+Order by nome
