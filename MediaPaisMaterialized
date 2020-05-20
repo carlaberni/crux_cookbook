@@ -1,0 +1,12 @@
+# média por país na tabela materialized
+
+SELECT
+   yyyymm as date,
+   SUM(fast_fcp) / COUNT(DISTINCT origin) AS media_fast_fcp,
+   SUM(avg_fcp) / COUNT(DISTINCT origin) AS media_avg_fcp
+FROM
+   `chrome-ux-report.materialized.country_summary`
+WHERE
+   country_code = "br"
+Group by date
+Order by date
