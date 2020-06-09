@@ -1,0 +1,16 @@
+SELECT
+  MIN(start) AS cls
+FROM (
+  SELECT
+      cls.start as start,
+      cls.density AS density,
+      SUM(cls.density) OVER (ORDER BY cls.start) / SUM(cls.density) OVER () AS total
+  FROM
+    `chrome-ux-report.country_br.202004`,
+    UNNEST(layout_instability.cumulative_layout_shift.histogram.bin) AS cls
+  WHERE
+    origin = 'https://www.decolar.com' AND
+    form_factor.name = 'desktop')
+WHERE
+  # 0.75 = 75th percentile
+  total >= 0.75
